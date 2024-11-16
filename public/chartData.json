@@ -1,0 +1,22 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "description": "Bar chart showing components of LCR and NSFR.",
+    "width": 200,
+    "data": {
+      "values": [
+        {"component": "HQLA", "value": 800000},
+        {"component": "TNCO", "value": 500000},
+        {"component": "ASF", "value": 600000},
+        {"component": "RSF", "value": 400000}
+      ]
+    },
+      "mark": {
+      "type": "bar",
+      "size": 50
+    },
+    "encoding": {
+      "x": {"field": "component", "type": "nominal", "axis": {"title": "Component"}},
+      "y": {"field": "value", "type": "quantitative", "axis": {"title": "Value"}},
+      "color": {"field": "component", "type": "nominal", "legend": null}
+    }
+  }

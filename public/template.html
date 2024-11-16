@@ -1,0 +1,82 @@
+<!--Graphing Utility - Vega-Lite -->
+<script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+
+<div id="vis1" style="display: flex; justify-content: center; align-items: center; height: 100%;">
+    <pre id="vega-lite-spec" class="vega-lite" contenteditable="false" data-mce-highlighted="false">
+    </pre>
+  </div>
+
+<!-- Vega Light Event Listener and Display Script -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Retrieve Vega-Lite specifications from <pre> tags
+      var specs = document.querySelectorAll('.vega-lite');
+
+      // Process each specification
+      specs.forEach(function(spec, index) {
+        // Parse JSON from <pre> content
+        var specContent = JSON.parse(spec.textContent.trim());
+
+        // Generate unique ID for each chart container
+        var visId = 'vis' + (index + 1);
+
+        // Render Vega-Lite chart using Vega-Embed
+        vegaEmbed('#' + visId, specContent, { actions: false });
+      });
+    });
+  </script>
+
+<!-- Vega-Lite Custom Functions -->
+<script>
+
+// Assuming `vega` is available in your environment
+vega.expressionFunction('correl', function(x, y) {
+  if (x.length !== y.length) {
+    throw new Error('Input arrays must have the same length.');
+  }
+
+  const n = x.length;
+  const sumX = x.reduce((a, b) => a + b, 0);
+  const sumY = y.reduce((a, b) => a + b, 0);
+  const sumXY = x.reduce((acc, val, idx) => acc + val * y[idx], 0);
+  const sumX2 = x.reduce((acc, val) => acc + val * val, 0);
+  const sumY2 = y.reduce((acc, val) => acc + val * val, 0);
+
+  const numerator = (n * sumXY) - (sumX * sumY);
+  const denominator = Math.sqrt(((n * sumX2) - (sumX * sumX)) * ((n * sumY2) - (sumY * sumY)));
+
+  if (denominator === 0) {
+    return 0;
+  }
+
+  return numerator / denominator;
+});
+
+vega.expressionFunction('movingAverage', function(values, step) {
+  const result = [];
+  for (let i = 0; i < values.length; i++) {
+    const windowValues = values.slice(Math.max(0, i - step + 1), i + 1);
+    const sum = windowValues.reduce((acc, val) => acc + val, 0);
+    result.push(sum / windowValues.length);
+  }
+  return result;
+});
+
+// Assuming `vega` is available in your environment
+vega.expressionFunction('lag', function(array, steps) {
+  // Ensure steps is a positive integer
+  if (!Number.isInteger(steps) || steps < 0) {
+    throw new Error('Steps must be a non-negative integer.');
+  }
+
+  const n = array.length;
+  const result = new Array(n).fill(null);
+
+  for (let i = steps; i < n; i++) {
+    result[i] = array[i - steps];
+  }
+
+  return result;
+});
