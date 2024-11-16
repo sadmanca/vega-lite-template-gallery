@@ -16,4 +16,5 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: "https://bestmeditationapps.com",
   integrations: [vue(), tailwind(), themeConfig(), mdx(), icon(), sitemap()],
+  output: "static",
 });

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import useAppConfig from '../../../util/useAppConfig';
 import Dot from './Dot.vue';
+import Icon from './Icon.vue'; // Import the Icon component
 
 const bannerConfig = (await useAppConfig()).header.banner;
 
@@ -26,7 +27,7 @@ const href = getHref();
         </strong>
         <Dot class="hidden sm:block" v-if="bannerConfig?.brandText" />
         {{ bannerConfig?.text }}
-        <Icon class="hidden sm:block w-5 h-5" name="tabler:arrow-right" />
+        <Icon class="hidden sm:block w-5 h-5" name="tabler:arrow-right" /> <!-- Use the imported Icon component -->
       </a>
     </p>
   </div>
