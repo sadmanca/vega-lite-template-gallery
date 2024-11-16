@@ -1,0 +1,16 @@
+---
+import DirectoryCard from "./Card.astro";
+
+const config = (await globalThis.themeConfig).directory;
+
+const { listings } = Astro.props;
+---
+
+<div
+  class={`not-prose grid grid-cols-1 gap-4 ${config?.list ? "" : "md:grid-cols-2 lg:grid-cols-4"}`}
+>
+  {
+    Array.isArray(listings) &&
+      listings.map((e: any) => <DirectoryCard item={e} />)
+  }
+</div>

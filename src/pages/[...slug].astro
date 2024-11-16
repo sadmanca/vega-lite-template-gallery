@@ -1,0 +1,39 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Prose from "../components/app/Prose.astro";
+
+// Fetch all listings and pages
+const { slug } = Astro.params;
+const { data, render } = Astro.props;
+
+const { Content } = await render();
+
+export async function getStaticPaths() {
+  const allListings = await getCollection("directory");
+  const allPages = await getCollection("front");
+
+  // Combine listings and pages
+  const combinedEntries = allListings.concat(allPages as never);
+
+  // Return paths based on slugs
+  const test = combinedEntries.map(({ data, render, slug }) => {
+    let mySlug: string = slug;
+
+    if (mySlug === "index") {
+      mySlug = "/";
+    }
+
+    return {
+      params: { slug: mySlug }, // Maps to `/` when slug is empty
+      props: { data, render },
+    };
+  });
+
+  return test;
+}
+---
+
+<BaseLayout>
+  <Content />
+</BaseLayout>

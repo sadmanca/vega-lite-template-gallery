@@ -1,0 +1,35 @@
+{
+  "name": "mintedastro",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/mdx": "^3.1.7",
+    "@astrojs/sitemap": "^3.2.0",
+    "@astrojs/tailwind": "^5.1.1",
+    "@astrojs/vue": "^4.5.1",
+    "@fontsource/gabarito": "^5.1.0",
+    "@headlessui/vue": "^1.7.23",
+    "@iarna/toml": "^2.2.5",
+    "@types/node": "^22.7.4",
+    "astro": "^4.15.11",
+    "astro-color-scheme": "^1.1.5",
+    "nanostores": "^0.11.3",
+    "sharp": "^0.33.5",
+    "tailwindcss": "^3.4.13",
+    "typescript": "^5.6.2",
+    "vue": "^3.5.11"
+  },
+  "devDependencies": {
+    "@iconify-json/tabler": "^1.2.5",
+    "@tailwindcss/typography": "^0.5.15",
+    "astro-icon": "^1.1.1"
+  }
+}

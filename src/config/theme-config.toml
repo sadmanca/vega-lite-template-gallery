@@ -1,0 +1,104 @@
+[general]
+title = "Minted Directory"
+logo = ""
+iconLogo = "tabler:leaf"
+
+[general.seo]
+name = "Nuxt Starters"
+description = "Find the best nuxt starter kits."
+url = "https://nuxtstarters.com"
+
+[directory.search]
+placeholder = "Search among {0} tools"
+showCount = true
+icon = "tabler:bow"
+
+[directory.search.tags]
+display = "select"   # options: none,select,show-all
+intersection = false
+
+[directory.grid]
+list = false
+
+[directory.grid.emptyState]
+text = "Seems that this entry is missing from the archives."
+type = "button"                                              # options: button, simple, link
+icon = "tabler:exclamation-mark"
+
+[directory.grid.card]
+image = true
+border = "shadow" # options: dashed, shadow, outline
+
+[directory.grid.submit]
+show = true
+first = false
+title = "Submit a template"
+description = "Submit a template to show off a good project to other people."
+hideable = true
+
+[directory.featured]
+showOnAllPages = true
+showOnSide = true
+icon = "tabler:star"
+labelForCard = "Featured ✨"
+
+[directory.tagPages]
+title = "{0} Apps"
+
+[[directory.tags]]
+key = "freemium"
+name = "Freemium"
+color = "blue"
+
+[[directory.tags]]
+key = "guided_meditations"
+name = "Guided Meditations"
+color = "green"
+
+[[directory.tags]]
+key = "timer"
+
+[header.banner]
+show = true
+text = "Follow mark_bruderer on twitter."
+link = "https://x.com/intent/follow?screen_name=mark_bruderer"
+brandText = "BestMeditationApps"
+
+[header.navbar]
+colorModeSelector = true
+
+[[header.navbar.links]]
+name = "Analytics"
+href = "https://us.posthog.com/shared/vHlGCcSqPjGH4r_QijaXSETtmN9J-g"
+target = "_blank"
+
+[header.actionButton]
+text = "Submit a starter"
+href = "/submit"
+
+[footer]
+description = "Best directory for my niche."
+
+[footer.socials.github]
+link = ""
+icon = "tabler:brand-github"
+
+[footer.socials.facebook]
+link = ""
+icon = "tabler:brand-facebook"
+
+[footer.socials.instagram]
+link = ""
+icon = "tabler:brand-instagram"
+
+[footer.socials.x]
+link = "https://x.com/mark_bruderer"
+icon = "tabler:brand-twitter"
+
+[footer.socials.youtube]
+link = "https://www.youtube.com/@mark_hacks"
+icon = "tabler:brand-youtube"
+
+[ui.icons]
+dark = "tabler:moon"
+light = "tabler:sun"

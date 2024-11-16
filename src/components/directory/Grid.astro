@@ -1,0 +1,32 @@
+---
+import { getCollection } from "astro:content";
+import PureGrid from "./PureGrid.astro";
+
+const allListings = await getCollection("directory");
+---
+
+<PureGrid id="directory-grid" listings={allListings} />
+
+<script>
+  import { search } from "../../store.js";
+
+  search.subscribe(() => {
+    const listingsArray = document.querySelectorAll(".listing");
+    const searchTerm = search.get().trim().toLowerCase();
+
+    for (const element of listingsArray) {
+      // Example condition to match search term (you can customize this)
+      const content =
+        element?.querySelector(".card-title")?.textContent ||
+        "" + element?.querySelector(".card-description")?.textContent ||
+        "";
+
+      // Add or remove the 'hidden' class based on the search term match
+      if (content?.toLowerCase().includes(searchTerm.toLowerCase())) {
+        element.classList.remove("hidden");
+      } else {
+        element.classList.add("hidden");
+      }
+    }
+  });
+</script>
