@@ -1,17 +1,17 @@
 [general]
-title = "Minted Directory"
+title = "Vega-Lite Template Gallery"
 logo = ""
-iconLogo = "tabler:leaf"
+iconLogo = "tabler:chart-histogram"
 
 [general.seo]
-name = "Nuxt Starters"
-description = "Find the best nuxt starter kits."
-url = "https://nuxtstarters.com"
+name = "Vega-Lite Template Gallery"
+description = "A collection of Vega-Lite templates for data visualization."
+url = "https://example.com"
 
 [directory.search]
-placeholder = "Search among {0} tools"
+placeholder = "Search among {0} diagrams"
 showCount = true
-icon = "tabler:bow"
+icon = "tabler:chart-bar"
 
 [directory.search.tags]
 display = "select"   # options: none,select,show-all
@@ -32,8 +32,8 @@ border = "shadow" # options: dashed, shadow, outline
 [directory.grid.submit]
 show = true
 first = false
-title = "Submit a template"
-description = "Submit a template to show off a good project to other people."
+title = "Submit a diagram template"
+description = "Submit a diagram template to add to the template gallery."
 hideable = true
 
 [directory.featured]
@@ -46,38 +46,38 @@ labelForCard = "Featured ✨"
 title = "{0} Apps"
 
 [[directory.tags]]
-key = "freemium"
-name = "Freemium"
+key = "default-tag"
+name = "Default Tag"
 color = "blue"
 
 [[directory.tags]]
-key = "guided_meditations"
-name = "Guided Meditations"
+key = "unused-tag"
+name = "unused-tag"
 color = "green"
 
 [[directory.tags]]
-key = "timer"
+key = "another unused tag"
 
 [header.banner]
 show = true
-text = "Follow mark_bruderer on twitter."
-link = "https://x.com/intent/follow?screen_name=mark_bruderer"
-brandText = "BestMeditationApps"
+text = "Follow ______ on twitter."
+link = "https://x.com/intent/follow?screen_name="
+brandText = "Vega-Lite Template Gallery"
 
 [header.navbar]
 colorModeSelector = true
 
 [[header.navbar.links]]
-name = "Analytics"
-href = "https://us.posthog.com/shared/vHlGCcSqPjGH4r_QijaXSETtmN9J-g"
+name = "Another Link"
+href = "https://example.com"
 target = "_blank"
 
 [header.actionButton]
-text = "Submit a starter"
+text = "Submit a Vega-Lite diagram template"
 href = "/submit"
 
 [footer]
-description = "Best directory for my niche."
+description = "Vega-Lite Template Gallery"
 
 [footer.socials.github]
 link = ""
@@ -92,11 +92,11 @@ link = ""
 icon = "tabler:brand-instagram"
 
 [footer.socials.x]
-link = "https://x.com/mark_bruderer"
+link = "https://x.com"
 icon = "tabler:brand-twitter"
 
 [footer.socials.youtube]
-link = "https://www.youtube.com/@mark_hacks"
+link = "https://www.youtube.com"
 icon = "tabler:brand-youtube"
 
 [ui.icons]

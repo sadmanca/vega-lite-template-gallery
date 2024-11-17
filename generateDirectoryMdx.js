@@ -14,7 +14,7 @@ layout: ../../layouts/Card.astro
 title: {title}
 description: This is an example listing to get you started.
 tags:
-  - freemium
+  - default-tag
 links:
   - name: "test"
     link: "#"
@@ -24,12 +24,12 @@ links:
 
 # {title}
 
-Calm is a leading app designed to improve mental health through meditation, sleep aids, and relaxation techniques. Known for its serene interface and diverse range of content, Calm helps users manage stress, anxiety, and sleep problems. Here's a breakdown of its features, meditation style, pricing, and more.
-
 import JsonCodeBlock from '../../components/JsonCodeBlock.astro';
 import VegaLite from '../../components/VegaLite.astro';
 
+## Code
 <JsonCodeBlock title="{title}" />
+## Vega-Lite Chart
 <VegaLite title="{title}" />
 `;
 
