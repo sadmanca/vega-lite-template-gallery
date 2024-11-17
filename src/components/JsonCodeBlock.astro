@@ -2,24 +2,30 @@
 import { readFile } from 'fs/promises';
 import { resolve } from 'path';
 
-const { filePath } = Astro.props; // Path to the JSON file under the /public directory
+const { title } = Astro.props; // Title string to filter the JSON data
 
 let jsonData = '';
 
 try {
-  // Read the JSON file
-  const jsonPath = resolve('public', filePath);
-  const fileContent = await readFile(jsonPath, 'utf-8');
-  jsonData = JSON.stringify(JSON.parse(fileContent), null, 2); // Pretty print JSON
+  // Read the db.json file
+  const dbPath = resolve('public/db.json');
+  const dbContent = await readFile(dbPath, 'utf-8');
+  const dbData = JSON.parse(dbContent);
+
+  // Filter the JSON data based on the title
+  const filteredItem = dbData.find((item: { title: string }) => item.title === title);
+
+  if (filteredItem) {
+    jsonData = JSON.stringify(JSON.parse(filteredItem.content), null, 2);
+  } else {
+    console.error('No matching item found for the given title.');
+  }
 } catch (error) {
+  console.error('Error reading files:', error);
 }
 ---
 
-<div>
-  <pre id="json-code">
-    <code>{jsonData}</code>
-  </pre>
-</div>
+<pre id="json-code">{jsonData}</pre>
 
 <style>
   pre {

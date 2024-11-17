@@ -29,7 +29,7 @@ Calm is a leading app designed to improve mental health through meditation, slee
 import JsonCodeBlock from '../../components/JsonCodeBlock.astro';
 import VegaLite from '../../components/VegaLite.astro';
 
-<JsonCodeBlock filePath="chartData.json" />
+<JsonCodeBlock title="{title}" />
 <VegaLite title="{title}" />
 `;
 
