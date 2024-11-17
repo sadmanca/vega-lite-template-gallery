@@ -3,7 +3,7 @@
 import { readFile } from 'fs/promises';
 import { resolve } from 'path';
 
-const { filePath } = Astro.props; // Path to the JSON file under the /public directory
+const { title } = Astro.props; // Title string to filter the JSON data
 
 let templateContent = '';
 let jsonData = '';
@@ -13,16 +13,25 @@ try {
   const templatePath = resolve('public/template.html');
   templateContent = await readFile(templatePath, 'utf-8');
 
-  // Read the JSON file
-  const jsonPath = resolve('public', filePath);
-  const fileContent = await readFile(jsonPath, 'utf-8');
-  jsonData = JSON.stringify(JSON.parse(fileContent), null, 2);
+  // Read the db.json file
+  const dbPath = resolve('public/db.json');
+  const dbContent = await readFile(dbPath, 'utf-8');
+  const dbData = JSON.parse(dbContent);
 
-  // Inject JSON data into the <pre> tag
-  templateContent = templateContent.replace(
-    '<pre id="vega-lite-spec" class="vega-lite" contenteditable="false" data-mce-highlighted="false">',
-    `<pre id="vega-lite-spec" class="vega-lite" contenteditable="false" data-mce-highlighted="false">${jsonData}`
-  );
+  // Filter the JSON data based on the title
+  const filteredItem = dbData.find((item: { title: string; content: string }) => item.title === title);
+
+  if (filteredItem) {
+    jsonData = JSON.stringify(JSON.parse(filteredItem.content), null, 2);
+
+    // Inject JSON data into the <pre> tag
+    templateContent = templateContent.replace(
+      '<pre id="vega-lite-spec" class="vega-lite" contenteditable="false" data-mce-highlighted="false">',
+      `<pre id="vega-lite-spec" class="vega-lite" contenteditable="false" data-mce-highlighted="false">${jsonData}`
+    );
+  } else {
+    console.error('No matching item found for the given title.');
+  }
 } catch (error) {
   console.error('Error reading files:', error);
 }

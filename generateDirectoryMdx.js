@@ -30,7 +30,7 @@ import JsonCodeBlock from '../../components/JsonCodeBlock.astro';
 import VegaLite from '../../components/VegaLite.astro';
 
 <JsonCodeBlock filePath="chartData.json" />
-<VegaLite filePath="chartData.json" />
+<VegaLite title="{title}" />
 `;
 
 // Read db.json
