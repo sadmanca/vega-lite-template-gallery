@@ -25,18 +25,20 @@ try {
 }
 ---
 
-<textarea id="json-code">{jsonData}</textarea>
+<textarea id="json-code" data-original-json={jsonData}>{jsonData}</textarea>
 <button id="copy-button">Copy</button>
 <button id="update-vega-lite">Update Vega-Lite</button>
+<button id="reset-button">Reset</button>
 
 <script>
   const copyButton = document.getElementById('copy-button');
   const updateButton = document.getElementById('update-vega-lite');
-  const jsonCode = document.getElementById('json-code');
+  const resetButton = document.getElementById('reset-button');
+  const jsonCode = document.getElementById('json-code') as HTMLTextAreaElement;
 
   copyButton.addEventListener('click', async () => {
     try {
-      await navigator.clipboard.writeText((jsonCode as HTMLTextAreaElement).value);
+      await navigator.clipboard.writeText(jsonCode.value);
       alert('Code copied to clipboard!');
     } catch (err) {
       console.error('Failed to copy: ', err);
@@ -45,8 +47,13 @@ try {
 
   updateButton.addEventListener('click', () => {
     // Dispatch a custom event with the JSON data
-    const event = new CustomEvent('jsonDataReady', { detail: (jsonCode as HTMLTextAreaElement).value });
+    const event = new CustomEvent('jsonDataReady', { detail: jsonCode.value });
     document.dispatchEvent(event);
+  });
+
+  resetButton.addEventListener('click', () => {
+    // Reset the textarea content to the original JSON data
+    jsonCode.value = jsonCode.getAttribute('data-original-json');
   });
 </script>
 
