@@ -7,7 +7,7 @@ const { title } = Astro.props; // Title string to filter the JSON data
 let templateContent = '';
 let jsonData = '';
 
-async function updateTemplateContent(newJsonData) {
+async function updateTemplateContent(newJsonData: string) {
   // Read the template.html file
   const templatePath = resolve('public/template.html');
   templateContent = await readFile(templatePath, 'utf-8');
@@ -20,7 +20,10 @@ async function updateTemplateContent(newJsonData) {
 
   // Update the HTML content on the client side
   if (typeof window !== 'undefined') {
-    document.querySelector('#template-container').innerHTML = templateContent;
+    const templateContainer = document.querySelector('#template-container');
+    if (templateContainer) {
+      templateContainer.innerHTML = templateContent;
+    }
 
     // Trigger the DOMContentLoaded event to re-render the chart
     const event = new Event('DOMContentLoaded', {
@@ -54,12 +57,13 @@ try {
 <div id="template-container" set:html={templateContent}></div>
 
 <script>
-  document.addEventListener('jsonDataReady', (event: CustomEvent) => {
-    const newJsonData = event.detail;
+  document.addEventListener('jsonDataReady', (event: Event) => {
+    const customEvent = event as CustomEvent;
+    const newJsonData = (event as CustomEvent).detail;
     updateTemplateContent(newJsonData);
   });
 
-  async function updateTemplateContent(newJsonData) {
+  async function updateTemplateContent(newJsonData: string) {
     const response = await fetch('/template.html');
     let templateContent = await response.text();
 
@@ -70,7 +74,10 @@ try {
     );
 
     // Update the HTML content
-    document.querySelector('#template-container').innerHTML = templateContent;
+    const templateContainer = document.querySelector('#template-container');
+    if (templateContainer) {
+      templateContainer.innerHTML = templateContent;
+    }
 
     // Trigger the DOMContentLoaded event to re-render the chart
     const event = new Event('DOMContentLoaded', {
