@@ -21,6 +21,13 @@ async function updateTemplateContent(newJsonData) {
   // Update the HTML content on the client side
   if (typeof window !== 'undefined') {
     document.querySelector('#template-container').innerHTML = templateContent;
+
+    // Trigger the DOMContentLoaded event to re-render the chart
+    const event = new Event('DOMContentLoaded', {
+      bubbles: true,
+      cancelable: true,
+    });
+    document.dispatchEvent(event);
   }
 }
 
@@ -47,8 +54,8 @@ try {
 <div id="template-container" set:html={templateContent}></div>
 
 <script>
-  document.addEventListener('jsonDataReady', (event) => {
-    const newJsonData = (event as CustomEvent).detail;
+  document.addEventListener('jsonDataReady', (event: CustomEvent) => {
+    const newJsonData = event.detail;
     updateTemplateContent(newJsonData);
   });
 
@@ -64,5 +71,12 @@ try {
 
     // Update the HTML content
     document.querySelector('#template-container').innerHTML = templateContent;
+
+    // Trigger the DOMContentLoaded event to re-render the chart
+    const event = new Event('DOMContentLoaded', {
+      bubbles: true,
+      cancelable: true,
+    });
+    document.dispatchEvent(event);
   }
 </script>
