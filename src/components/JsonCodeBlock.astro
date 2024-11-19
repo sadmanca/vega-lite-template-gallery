@@ -27,9 +27,11 @@ try {
 
 <textarea id="json-code">{jsonData}</textarea>
 <button id="copy-button">Copy</button>
+<button id="update-vega-lite">Update Vega-Lite</button>
 
 <script>
   const copyButton = document.getElementById('copy-button');
+  const updateButton = document.getElementById('update-vega-lite');
   const jsonCode = document.getElementById('json-code');
 
   copyButton.addEventListener('click', async () => {
@@ -39,6 +41,12 @@ try {
     } catch (err) {
       console.error('Failed to copy: ', err);
     }
+  });
+
+  updateButton.addEventListener('click', () => {
+    // Dispatch a custom event with the JSON data
+    const event = new CustomEvent('jsonDataReady', { detail: (jsonCode as HTMLTextAreaElement).value });
+    document.dispatchEvent(event);
   });
 </script>
 

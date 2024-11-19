@@ -1,5 +1,4 @@
 ---
-// VegaLite.astro
 import { readFile } from 'fs/promises';
 import { resolve } from 'path';
 
@@ -8,11 +7,24 @@ const { title } = Astro.props; // Title string to filter the JSON data
 let templateContent = '';
 let jsonData = '';
 
-try {
+async function updateTemplateContent(newJsonData) {
   // Read the template.html file
   const templatePath = resolve('public/template.html');
   templateContent = await readFile(templatePath, 'utf-8');
 
+  // Inject JSON data into the <pre> tag
+  templateContent = templateContent.replace(
+    '<pre id="vega-lite-spec" class="vega-lite" contenteditable="false" data-mce-highlighted="false">',
+    `<pre id="vega-lite-spec" class="vega-lite" contenteditable="false" data-mce-highlighted="false">${newJsonData}`
+  );
+
+  // Update the HTML content on the client side
+  if (typeof window !== 'undefined') {
+    document.querySelector('#template-container').innerHTML = templateContent;
+  }
+}
+
+try {
   // Read the db.json file
   const dbPath = resolve('public/db.json');
   const dbContent = await readFile(dbPath, 'utf-8');
@@ -23,12 +35,7 @@ try {
 
   if (filteredItem) {
     jsonData = JSON.stringify(JSON.parse(filteredItem.content), null, 2);
-
-    // Inject JSON data into the <pre> tag
-    templateContent = templateContent.replace(
-      '<pre id="vega-lite-spec" class="vega-lite" contenteditable="false" data-mce-highlighted="false">',
-      `<pre id="vega-lite-spec" class="vega-lite" contenteditable="false" data-mce-highlighted="false">${jsonData}`
-    );
+    await updateTemplateContent(jsonData);
   } else {
     console.error('No matching item found for the given title.');
   }
@@ -37,4 +44,25 @@ try {
 }
 ---
 
-<div set:html={templateContent}></div>
+<div id="template-container" set:html={templateContent}></div>
+
+<script>
+  document.addEventListener('jsonDataReady', (event) => {
+    const newJsonData = (event as CustomEvent).detail;
+    updateTemplateContent(newJsonData);
+  });
+
+  async function updateTemplateContent(newJsonData) {
+    const response = await fetch('/template.html');
+    let templateContent = await response.text();
+
+    // Inject JSON data into the <pre> tag
+    templateContent = templateContent.replace(
+      '<pre id="vega-lite-spec" class="vega-lite" contenteditable="false" data-mce-highlighted="false">',
+      `<pre id="vega-lite-spec" class="vega-lite" contenteditable="false" data-mce-highlighted="false">${newJsonData}`
+    );
+
+    // Update the HTML content
+    document.querySelector('#template-container').innerHTML = templateContent;
+  }
+</script>
