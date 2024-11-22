@@ -15,14 +15,15 @@ const allListings = await getCollection("directory");
     const searchTerm = search.get().trim().toLowerCase();
 
     for (const element of listingsArray) {
-      // Example condition to match search term (you can customize this)
-      const content =
-        element?.querySelector(".card-title")?.textContent ||
-        "" + element?.querySelector(".card-description")?.textContent ||
-        "";
+      const title = element?.querySelector(".card-title")?.textContent?.toLowerCase() || "";
+      const description = element?.querySelector(".card-description")?.textContent?.toLowerCase() || "";
+      const tag = element?.querySelector(".gray-tag")?.textContent?.toLowerCase() || "";
 
-      // Add or remove the 'hidden' class based on the search term match
-      if (content?.toLowerCase().includes(searchTerm.toLowerCase())) {
+      // Check if any of the fields match the search term
+      const matches = title.includes(searchTerm) || description.includes(searchTerm) || tag.includes(searchTerm);
+
+      // Add or remove the 'hidden' class based on the match
+      if (matches) {
         element.classList.remove("hidden");
       } else {
         element.classList.add("hidden");

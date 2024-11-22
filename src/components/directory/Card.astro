@@ -9,7 +9,7 @@ const cardConfig = await globalThis.themeConfig;
 const { item } = Astro.props;
 ---
 
-{ cardConfig.type !== 'bullet' ?
+{ cardConfig.type !== 'bullet' ? (
 <a href={`/${item.slug}`}
   class="border listing col-span-1 border-gray-200 dark:border-gray-500 hover:border-primary-400 hover:border-solid dark:hover:border-primary-300 rounded relative group transition-all duration-300"
   class={cardConfig?.type === 'shadow' ? 'shadow-sm' : cardConfig?.type === 'dashed' ? 'border-dashed' : ''}>
@@ -26,18 +26,19 @@ const { item } = Astro.props;
     <p class="line-clamp-4 mt-2 card-description">
       {item.data.description }
     </p>
-    <div class="p-0 mt-2 flex gap-2">
+    <div class="p-0 mt-2 flex flex-wrap gap-2">
       { item.data.tags?.map(
         (e: string) => <UiTag tag={e} /> )
       }
     </div>
   </div>
-</a> :
+</a>
+) : (
 <a href={`/${item.slug}`} class="listing">
   <div class="inline-flex gap-2 items-center">
     <img class="h-5 w-5" src={item.data.card_image ?? '/logo.png'} />
     <span class="font-semibold dark:text-gray-50">{ item.data.title }</span> -
     <span class="text-gray-600 dark:text-gray-300">{ item.data.description }</span>
   </div>
-</a> 
-}
+</a>
+)}

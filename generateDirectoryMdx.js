@@ -11,10 +11,15 @@ const directoryPath = path.resolve(__dirname, 'src/content/directory');
 // Sample placeholder values
 const sampleContent = `---
 layout: ../../layouts/Card.astro
-title: {title}
-description: This is an example listing to get you started.
+title: "{figure_description}"
+description: "{figure_number} - {title} - {lesson_title} - {section_name}"
 tags:
-  - default-tag
+  - "{filename}"
+  - "{section_name}"
+  - "{lesson_title}"
+  - "{title}"
+  - "ID: {id}"
+  - "Module ID: {moduleid}"
 links:
   - name: "test"
     link: "#"
@@ -45,7 +50,15 @@ fs.readdirSync(directoryPath).forEach(file => {
 dbData.forEach((item, index) => {
   const fileName = `${item.title.replace(/[\s.]+/g, '_').toLowerCase()}.mdx`;
   const filePath = path.join(directoryPath, fileName);
-  const fileContent = sampleContent.replace(/{title}/g, item.title);
+  var fileContent = sampleContent.replace(/{title}/g, item.title);
+  fileContent = fileContent.replace(/{id}/g, item.id);
+  fileContent = fileContent.replace(/{moduleid}/g, item.moduleid);
+  fileContent = fileContent.replace(/{lesson_title}/g, item.lesson_title);
+  fileContent = fileContent.replace(/{sectionid}/g, item.sectionid);
+  fileContent = fileContent.replace(/{section_name}/g, item.section_name);
+  fileContent = fileContent.replace(/{filename}/g, item.filename);
+  fileContent = fileContent.replace(/{figure_number}/g, item.figure_number);
+  fileContent = fileContent.replace(/{figure_description}/g, item.figure_description);
 
   fs.writeFileSync(filePath, fileContent, 'utf-8');
   console.log(`Created: ${filePath}`);
