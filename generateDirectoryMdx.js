@@ -9,15 +9,18 @@ const dbPath = path.resolve(__dirname, 'public/db.json');
 const directoryPath = path.resolve(__dirname, 'src/content/directory');
 
 // Sample placeholder values
+
+// card_image: "/public/favicon_large.png"
 const sampleContent = `---
 layout: ../../layouts/Card.astro
 title: "{figure_description}"
-description: "{figure_number} - {title} - {lesson_title} - {section_name}"
+description: "{vega_description}"
 tags:
   - "{filename}"
   - "{section_name}"
   - "{lesson_title}"
   - "{title}"
+  - "{figure_number}"
   - "ID: {id}"
   - "Module ID: {moduleid}"
 links:
@@ -59,6 +62,11 @@ dbData.forEach((item, index) => {
   fileContent = fileContent.replace(/{filename}/g, item.filename);
   fileContent = fileContent.replace(/{figure_number}/g, item.figure_number);
   fileContent = fileContent.replace(/{figure_description}/g, item.figure_description);
+  if (item.vega_description !== null) {
+    fileContent = fileContent.replace(/{vega_description}/g, item.vega_description);
+  } else {
+    fileContent = fileContent.replace(/{vega_description}/g, item.title);
+  }
 
   fs.writeFileSync(filePath, fileContent, 'utf-8');
   console.log(`Created: ${filePath}`);
