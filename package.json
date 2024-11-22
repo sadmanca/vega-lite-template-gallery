@@ -19,7 +19,7 @@
     "@headlessui/vue": "^1.7.23",
     "@iarna/toml": "^2.2.5",
     "@types/node": "^22.7.4",
-    "astro": "^4.16.13",
+    "astro": "^4.16.14",
     "astro-color-scheme": "^1.1.5",
     "fuse.js": "^7.0.0",
     "html-to-image": "^1.11.11",
