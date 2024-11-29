@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic HTML Injection</title>
+    <style>
+        /* Optional spinner styles */
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Dynamic Content Below</h1>
+    <div id="dynamic-content">
+        <div class="spinner"></div> <!-- Spinner to indicate loading -->
+    </div>
+
+    <script>
+        async function loadContent() {
+            try {
+                // Replace with your REST API endpoint
+                const response = await fetch('https://mediumpurple-panther-459618.hostingersite.com/api.php/records/rai_test_db/1');
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                // Parse JSON response
+                const data = await response.json();
+
+                // Extract and insert the HTML from 'col2'
+                const htmlContent = data.col2;
+                const dynamicContent = document.getElementById('dynamic-content');
+                dynamicContent.innerHTML = htmlContent;
+                dynamicContent.style.backgroundColor = ""; // Remove background color if set
+            } catch (error) {
+                console.error('Error fetching the content:', error);
+                document.getElementById('dynamic-content').innerHTML = `<p>Error loading content</p>`;
+            }
+        }
+
+        // Call the function to load content on page load
+        loadContent();
+    </script>
+    <h1>Auto running JupyterLite embed below (code is in HTML file, not a public GitHub repo)</h1>
+	<iframe
+	  src="https://jupyterlite.github.io/demo/repl/index.html?kernel=python&code=
+		import numpy as np %0A
+		import matplotlib.pyplot as plt %0A
+		a = np.arange(15).reshape(3, 5) %0A
+		a&code=plt.imshow(a) %0A
+		plt.show()"
+	  width="100%"
+	  height="600px"
+	></iframe>
+    
+</body>
+</html>
